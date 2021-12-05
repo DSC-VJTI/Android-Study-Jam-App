@@ -7,7 +7,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "gdsc.stydyjams.newapp"
+        applicationId "gdsc.stydyjams.newsapp"
         minSdk 21
         targetSdk 31
         versionCode 1
