@@ -1,4 +1,4 @@
-package gdsc.stydyjams.newapp
+package gdsc.stydyjams.newsapp
 
 import org.junit.Test
 
