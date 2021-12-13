@@ -24,6 +24,8 @@ class LoginActivity : AppCompatActivity() {
             if (validateAndLogin(emailField, passwordField)) {
                 println("MAKING TOAST")
                 Toast.makeText(this, "Logged in successfully", Toast.LENGTH_SHORT).show()
+                val loginIntent = Intent(this, MainActivity::class.java)
+                startActivity(loginIntent)
             }
         }
 
