@@ -4,8 +4,20 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavHost
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import gdsc.stydyjams.newsapp.databinding.RecyclerViewItemBinding
+import androidx.core.content.ContextCompat.startActivity
+
+import android.content.Intent
+import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
+
 
 class RecyclerViewAdapter(
     var news : List<HeadlineItem>
@@ -27,6 +39,18 @@ class RecyclerViewAdapter(
         }
         binding.headlineText.text = news[position].headline
         binding.headlineImage.setImageResource(news[position].image)
+
+
+        holder.itemView.setOnClickListener {
+//                val activity = v!!.context as AppCompatActivity
+//            val newsFragment = NewsFragment()
+//            activity.supportFragmentManager.beginTransaction().replace(R.id.main, newsFragment)
+//                .addToBackStack(null).commit()
+            val action = ListFragmentDirections.actionListFragmentToNewsFragment2()
+            holder.itemView.findNavController().navigate(action)
+
+
+        }
     }
 
     override fun getItemCount(): Int {
