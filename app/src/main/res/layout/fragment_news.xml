@@ -12,13 +12,13 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
-        android:layout_centerHorizontal="true"
         android:text="India won Gold Medal"
         android:textColor="@color/black"
         android:textSize="35sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
     <TextView
         android:id="@+id/content"
         android:layout_width="wrap_content"

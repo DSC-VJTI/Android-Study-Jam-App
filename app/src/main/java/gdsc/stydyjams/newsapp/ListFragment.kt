@@ -5,19 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
+import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import gdsc.stydyjams.newsapp.databinding.FragmentListBinding
+import gdsc.stydyjams.newsapp.viewmodels.ListViewModel
 
 
 class ListFragment : Fragment(R.layout.fragment_list) {
 
-
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
+    private val viewmodel : ListViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -28,23 +29,17 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         // inflate the layout and bind to the _binding
         _binding = FragmentListBinding.inflate(inflater, container, false)
 
-            var news = mutableListOf(
-            HeadlineItem("India wins a Gold Medal", R.drawable.img1),
-            HeadlineItem("India wins a Gold Medal", R.drawable.img1),
-            HeadlineItem("India wins a Gold Medal", R.drawable.img1),
-            HeadlineItem("India wins a Gold Medal", R.drawable.img1),
-            HeadlineItem("India wins a Gold Medal", R.drawable.img1),
-            HeadlineItem("India wins a Gold Medal", R.drawable.img1),
-            HeadlineItem("India wins a Gold Medal", R.drawable.img1),
-            HeadlineItem("India wins a Gold Medal", R.drawable.img1),
-            HeadlineItem("India wins a Gold Medal", R.drawable.img1),
-            HeadlineItem("India wins a Gold Medal", R.drawable.img1),
-            HeadlineItem("India wins a Gold Medal", R.drawable.img1),
-        )
-
-        val adapter = RecyclerViewAdapter(news)
+        var news = viewmodel.news
+        val adapter = RecyclerViewAdapter(news.value!!)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+
+        news.observe(viewLifecycleOwner, {
+            val adapter = RecyclerViewAdapter(it)
+            binding.recyclerView.adapter = adapter
+            binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+            Toast.makeText(context,"News Updated!",Toast.LENGTH_SHORT)
+        })
 
         // Inflate the layout for this fragment
         return binding.root
