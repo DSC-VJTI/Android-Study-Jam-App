@@ -4,23 +4,14 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavHost
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import gdsc.stydyjams.newsapp.databinding.RecyclerViewItemBinding
-import androidx.core.content.ContextCompat.startActivity
-
-import android.content.Intent
-import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
+import gdsc.stydyjams.newsapp.network.Article
 
 
 class RecyclerViewAdapter(
-    var news : List<HeadlineItem>
+    var news : List<Article>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     private lateinit var binding: RecyclerViewItemBinding
     inner class RecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -37,8 +28,8 @@ class RecyclerViewAdapter(
         } else {
             binding.headlineText.setTextColor(Color.BLACK)
         }
-        binding.headlineText.text = news[position].headline
-        binding.headlineImage.setImageResource(news[position].image)
+        binding.headlineText.text = news[position].title
+        //binding.headlineImage.setImageResource(news[position].urlToImage)
 
 
         holder.itemView.setOnClickListener {
