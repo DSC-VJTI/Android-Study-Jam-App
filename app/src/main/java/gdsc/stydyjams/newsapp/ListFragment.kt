@@ -18,7 +18,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
-    private val viewmodel : ListViewModel by viewModels()
+    private val viewModel: ListViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -29,16 +29,16 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         // inflate the layout and bind to the _binding
         _binding = FragmentListBinding.inflate(inflater, container, false)
 
-        var news = viewmodel.news
-        val adapter = RecyclerViewAdapter(news.value!!)
-        binding.recyclerView.adapter = adapter
+        val news = viewModel.news
+        val recyclerViewAdapter = activity?.let { RecyclerViewAdapter(it, news.value!!) }
+        binding.recyclerView.adapter = recyclerViewAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
 
         news.observe(viewLifecycleOwner, {
-            val adapter = RecyclerViewAdapter(it)
+            val adapter = activity?.let { activityContext -> RecyclerViewAdapter(activityContext, it) }
             binding.recyclerView.adapter = adapter
             binding.recyclerView.layoutManager = LinearLayoutManager(activity)
-            Toast.makeText(context,"News Updated!",Toast.LENGTH_SHORT)
+            Toast.makeText(context,"News Updated!",Toast.LENGTH_SHORT).show()
         })
 
         // Inflate the layout for this fragment
