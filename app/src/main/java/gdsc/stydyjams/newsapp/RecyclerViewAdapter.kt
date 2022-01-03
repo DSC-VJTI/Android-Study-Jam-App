@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.autofill.AutofillValue
+import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import gdsc.stydyjams.newsapp.databinding.RecyclerViewItemBinding
@@ -44,9 +45,11 @@ class RecyclerViewAdapter(
         }
         binding.headlineText.setTextColor(Color.LTGRAY)
         binding.headlineText.text = news[position].title
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            binding.slotBookmark.autofill(AutofillValue.forToggle(false))
+        binding.slotBookmark.setOnClickListener {
+            /// TODO: Add bookmark to Room database
+            Toast.makeText(context,"Added to bookmarks",Toast.LENGTH_SHORT).show()
         }
+
 //        binding.headlineImage.setImageResource(news[position].urlToImage)
 
         holder.itemView.setOnClickListener {
