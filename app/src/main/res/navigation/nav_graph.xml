@@ -7,15 +7,30 @@
     <fragment
         android:id="@+id/listFragment"
         android:name="gdsc.stydyjams.newsapp.ListFragment"
-        android:label="fragment_list"
+        android:label="Today's News"
         tools:layout="@layout/fragment_list" >
         <action
             android:id="@+id/action_listFragment_to_newsFragment2"
             app:destination="@id/newsFragment2" />
+        <action
+            android:id="@+id/action_listFragment_to_bookmarksFragment"
+            app:destination="@id/bookmarks_fragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/bookmarks_fragment"
+        android:name="gdsc.stydyjams.newsapp.BookmarksFragment"
+        android:label="Your Bookmarks"
+        tools:layout="@layout/fragment_bookmarks" >
+    </fragment>
+
     <fragment
         android:id="@+id/newsFragment2"
         android:name="gdsc.stydyjams.newsapp.NewsFragment"
-        android:label="fragment_news"
-        tools:layout="@layout/fragment_news" />
+        android:label="News Article"
+        tools:layout="@layout/fragment_news" >
+    <argument
+        android:name="article"
+        app:argType="gdsc.stydyjams.newsapp.model.Article" />
+    </fragment>
 </navigation>
