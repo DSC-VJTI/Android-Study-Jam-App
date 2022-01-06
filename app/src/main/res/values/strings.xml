@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">News App</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="paragraph">Lorem ipsum dolor sit amet. Et eveniet commodi et aliquid repudiandae non autem quas sed laborum placeat vel amet rerum. Et suscipit esse et dolor dolores id natus reprehenderit. Est aperiam itaque et consectetur deserunt id molestiae dolorum.
+
+Et odio accusantium cum dignissimos repudiandae aut blanditiis consequatur aut quisquam aspernatur qui consequatur suscipit qui sunt autem nam perferendis voluptas? Ut optio dolore sit optio laborum ex debitis porro sit voluptas ipsa in animi harum aut excepturi molestias ea dolore recusandae. Qui consectetur quis 33 reprehenderit vitae ea amet delectus in laboriosam omnis. Eos iste quidem eos doloribus reiciendis eum culpa sapiente vel adipisci minima.</string>
+    <string name="bookmark_border_content_description">Tap to add news item to bookmarks</string>
+    <string name="action_bar_bookmarks">Bookmarks</string>
+    <string name="fab_content_description">Click to add article to bookmarks</string>
+</resources>
