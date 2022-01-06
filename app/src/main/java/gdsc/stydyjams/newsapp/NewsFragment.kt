@@ -1,26 +1,23 @@
 package gdsc.stydyjams.newsapp
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavController
+import android.webkit.WebViewClient
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import gdsc.stydyjams.newsapp.databinding.FragmentNewsBinding
-import androidx.fragment.app.FragmentActivity
-import android.app.Activity
-import android.text.Layout
-import androidx.fragment.app.FragmentManager
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
+import gdsc.stydyjams.newsapp.viewmodels.ListViewModel
 
 
 class NewsFragment : Fragment(R.layout.fragment_news) {
-    private var myContext: FragmentActivity? = null
+
     private var _binding: FragmentNewsBinding? = null
-    private lateinit var navController: NavController
     private val binding get() = _binding!!
+    private lateinit var viewModel: ListViewModel
+    private val args by navArgs<NewsFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,20 +26,32 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
 
         // inflate the layout and bind to the _binding
         _binding = FragmentNewsBinding.inflate(inflater, container, false)
-//        val navHostFragment: NavHostFragment? = (childFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment?)
-//        if (navHostFragment != null) {
-//            navController = navHostFragment.navController
-//        }
-//        binding.saveButton.setOnClickListener {
-////            var dialog = CustomDialogFragment()
-////            val fragManager: FragmentManager = myContext!!.supportFragmentManager
-////            dialog.show(fragManager,"customDialog")
-//            val action = NewsFragmentDirections.actionNewsFragmentToDialogFragment()
-//            findNavController().navigate(action)
-//
-//        }
 
-        // Inflate the layout for this fragment
+        // obtaining the instance of view model from the ViewModelProviderFactory present in MainActivity
+        viewModel = (activity as MainActivity).viewModel
+
+        // obtain the arguments passed from ListFragment - check nav_graph.xml for details about the argument passed
+        val article = args.article
+
+        // creating the web view for the URL provided in the article
+        binding.webView.apply {
+            webViewClient = WebViewClient()
+            loadUrl(article.url)
+        }
+
+        // adding the article to the bookmark Room database on clicking the FloatingActionButton
+        binding.fab.setOnClickListener {
+            viewModel.addBookmark(article)
+            view?.let { view ->
+                Snackbar.make(
+                    view,
+                    "Article added to bookmarks",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+        }
+
+        // inflate the layout for this fragment
         return binding.root
     }
 
@@ -50,10 +59,5 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         super.onDestroyView()
         _binding = null
     }
-    override fun onAttach(activity: Activity) {
-        myContext = activity as FragmentActivity
-        super.onAttach(activity)
-    }
-
 
 }

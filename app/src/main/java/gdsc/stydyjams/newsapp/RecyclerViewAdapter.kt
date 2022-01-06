@@ -6,12 +6,11 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.autofill.AutofillValue
-import android.widget.Toast
-import androidx.navigation.findNavController
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import gdsc.stydyjams.newsapp.databinding.RecyclerViewItemBinding
-import gdsc.stydyjams.newsapp.network.Article
+import gdsc.stydyjams.newsapp.model.Article
 
 
 class RecyclerViewAdapter(
@@ -22,6 +21,18 @@ class RecyclerViewAdapter(
 
     inner class RecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
+    private val differCallback = object : DiffUtil.ItemCallback<Article>(){
+        override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
+            return oldItem.url == newItem.url
+        }
+
+        override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+    val diff = AsyncListDiffer(this, differCallback)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_item, parent, false)
@@ -30,11 +41,6 @@ class RecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-//        if (position % 2 == 0) {
-//            binding.headlineText.setTextColor(Color.DKGRAY)
-//        } else {
-//            binding.headlineText.setTextColor(Color.BLACK)
-//        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             binding.root.setBackgroundColor(
                 context.resources.getColor(
@@ -43,27 +49,27 @@ class RecyclerViewAdapter(
                 )
             )
         }
-        binding.headlineText.setTextColor(Color.LTGRAY)
-        binding.headlineText.text = news[position].title
-        binding.slotBookmark.setOnClickListener {
-            /// TODO: Add bookmark to Room database
-            Toast.makeText(context,"Added to bookmarks",Toast.LENGTH_SHORT).show()
+        holder.itemView.apply {
+            binding.headlineText.setTextColor(Color.LTGRAY)
+            binding.headlineText.text = news[position].title
+            setOnClickListener {
+                onItemClickListener?.let { it(news[position]) }
+            }
+
         }
 
 //        binding.headlineImage.setImageResource(news[position].urlToImage)
-
-        holder.itemView.setOnClickListener {
-//                val activity = v!!.context as AppCompatActivity
-//            val newsFragment = NewsFragment()
-//            activity.supportFragmentManager.beginTransaction().replace(R.id.main, newsFragment)
-//                .addToBackStack(null).commit()
-            val action = ListFragmentDirections.actionListFragmentToNewsFragment2()
-            holder.itemView.findNavController().navigate(action)
-        }
     }
 
     override fun getItemCount(): Int {
         return news.size
+    }
+
+    // adding onClick listener to the RecyclerViewHolder
+    private var onItemClickListener: ((Article) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (Article) -> Unit) {
+        onItemClickListener = listener
     }
 
 }
