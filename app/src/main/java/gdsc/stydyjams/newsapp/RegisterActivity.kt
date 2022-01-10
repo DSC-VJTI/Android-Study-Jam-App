@@ -8,13 +8,20 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class RegisterActivity : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         setContentView(R.layout.activity_register)
 
+        auth = Firebase.auth
         val button: Button = findViewById(R.id.activity_register_button)
         val emailField: EditText = findViewById(R.id.activity_register_email)
         val passwordField: EditText = findViewById(R.id.activity_register_password)
@@ -22,7 +29,19 @@ class RegisterActivity : AppCompatActivity() {
 
         button.setOnClickListener {
             if (validateAndRegister(emailField, passwordField)) {
-                Toast.makeText(this, "Successfully Registered!", Toast.LENGTH_SHORT).show()
+                auth.createUserWithEmailAndPassword(emailField.text.toString(), passwordField.text.toString())
+                    .addOnCompleteListener { task->
+                        if(task.isSuccessful)
+                        {
+                            Toast.makeText(this, "Signed In successfully", Toast.LENGTH_SHORT).show()
+                            val loginIntent = Intent(this, LoginActivity::class.java)
+                            startActivity(loginIntent)
+                            this.finish()
+                        }
+                        else {
+                            Toast.makeText(this, task.exception!!.localizedMessage, Toast.LENGTH_SHORT).show()
+                        }
+                    }
             }
         }
 

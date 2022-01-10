@@ -1,6 +1,7 @@
 package gdsc.stydyjams.newsapp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,11 +33,12 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
 
         // obtain the arguments passed from ListFragment - check nav_graph.xml for details about the argument passed
         val article = args.article
+        val url = args.url
 
         // creating the web view for the URL provided in the article
         binding.webView.apply {
             webViewClient = WebViewClient()
-            loadUrl(article.url)
+            loadUrl(if(article==null) url!! else article.url)
         }
 
         // adding the article to the bookmark Room database on clicking the FloatingActionButton
