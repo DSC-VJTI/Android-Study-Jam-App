@@ -21,7 +21,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
-        if(currentUser != null){
+        if (currentUser != null) {
             goToDashboard()
         }
     }
@@ -39,14 +39,16 @@ class LoginActivity : AppCompatActivity() {
 
         button.setOnClickListener {
             if (validateAndLogin(emailField, passwordField)) {
-                auth.signInWithEmailAndPassword(emailField.text.toString(), passwordField.text.toString())
+                auth.signInWithEmailAndPassword(
+                    emailField.text.toString(),
+                    passwordField.text.toString()
+                )
                     .addOnCompleteListener { task ->
-                        if(task.isSuccessful) {
+                        if (task.isSuccessful) {
                             goToDashboard()
-                        }
-
-                        else {
-                            Toast.makeText(this, task.exception!!.message, Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(this, task.exception!!.message, Toast.LENGTH_SHORT)
+                                .show()
                         }
                     }
             }

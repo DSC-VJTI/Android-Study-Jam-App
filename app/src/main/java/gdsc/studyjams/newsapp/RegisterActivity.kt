@@ -29,17 +29,23 @@ class RegisterActivity : AppCompatActivity() {
 
         button.setOnClickListener {
             if (validateAndRegister(emailField, passwordField)) {
-                auth.createUserWithEmailAndPassword(emailField.text.toString(), passwordField.text.toString())
-                    .addOnCompleteListener { task->
-                        if(task.isSuccessful)
-                        {
-                            Toast.makeText(this, "Signed In successfully", Toast.LENGTH_SHORT).show()
+                auth.createUserWithEmailAndPassword(
+                    emailField.text.toString(),
+                    passwordField.text.toString()
+                )
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(this, "Signed In successfully", Toast.LENGTH_SHORT)
+                                .show()
                             val loginIntent = Intent(this, LoginActivity::class.java)
                             startActivity(loginIntent)
                             this.finish()
-                        }
-                        else {
-                            Toast.makeText(this, task.exception!!.localizedMessage, Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(
+                                this,
+                                task.exception!!.localizedMessage,
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
             }
