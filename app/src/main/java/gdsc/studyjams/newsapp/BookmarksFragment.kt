@@ -1,31 +1,28 @@
-package gdsc.stydyjams.newsapp
+package gdsc.studyjams.newsapp
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import gdsc.stydyjams.newsapp.database.bookmark.Bookmark
-import gdsc.stydyjams.newsapp.databinding.FragmentBookmarksBinding
-import gdsc.stydyjams.newsapp.viewmodels.ListViewModel
+import gdsc.studyjams.newsapp.databinding.FragmentBookmarksBinding
+import gdsc.studyjams.newsapp.model.Article
+import gdsc.studyjams.newsapp.viewmodels.ListViewModel
 
 class BookmarksFragment : Fragment(R.layout.fragment_bookmarks) {
 
     private var _binding: FragmentBookmarksBinding? = null
     private val binding get() = _binding!!
     lateinit var viewModel: ListViewModel
-    lateinit var recyclerViewAdapter: BookmarksRecyclerViewAdapter
+    lateinit var adapter: BookmarksAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentBookmarksBinding.inflate(inflater, container, false)
         // obtaining the instance of view model from the ViewModelProviderFactory present in MainActivity
@@ -33,29 +30,29 @@ class BookmarksFragment : Fragment(R.layout.fragment_bookmarks) {
 
         val bookmarks = viewModel.getBookmarks()
 
-//        val bookmarks = MutableLiveData(listOf(Bookmark("Hi","google.com"),
-//            Bookmark("Bye","apple.com")))
-
-        bookmarks.observe(viewLifecycleOwner, Observer {bookmarks ->
-            recyclerViewAdapter =
-                activity?.let { activityContext -> BookmarksRecyclerViewAdapter(activityContext, bookmarks) }!!
-            recyclerViewAdapter.diff.submitList(bookmarks)
+        bookmarks.observe(viewLifecycleOwner, { bookmark ->
+            adapter =
+                activity?.let { activityContext -> BookmarksAdapter(activityContext, bookmark) }!!
+            adapter.diff.submitList(bookmark)
             val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-            binding.articleHeadline.adapter = recyclerViewAdapter
+            binding.articleHeadline.adapter = adapter
             binding.articleHeadline.layoutManager = layoutManager
 
             binding.articleHeadline.addItemDecoration(
-                    DividerItemDecoration(
+                DividerItemDecoration(
                     activity,
                     layoutManager.orientation
                 )
             )
 
-            recyclerViewAdapter.setOnItemClickListener { bookmark ->
+            adapter.setOnItemClickListener {
                 val bundle = Bundle().apply {
-                    putSerializable("url", bookmark.url)
+                    putSerializable("article", Article(it.headline, it.url))
                 }
-               findNavController().navigate(R.id.action_bookmarks_fragment_to_newsFragment2, bundle)
+                findNavController().navigate(
+                    R.id.action_bookmarks_fragment_to_newsFragment2,
+                    bundle
+                )
             }
         })
 

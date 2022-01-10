@@ -1,4 +1,4 @@
-package gdsc.stydyjams.newsapp.model
+package gdsc.studyjams.newsapp.model
 
 import com.squareup.moshi.Json
 import java.io.Serializable

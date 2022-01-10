@@ -1,4 +1,4 @@
-package gdsc.stydyjams.newsapp
+package gdsc.studyjams.newsapp
 
 import android.content.Context
 import android.graphics.Color
@@ -10,13 +10,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import gdsc.stydyjams.newsapp.database.bookmark.Bookmark
-import gdsc.stydyjams.newsapp.databinding.RecyclerViewItemBinding
+import gdsc.studyjams.newsapp.database.bookmark.Bookmark
+import gdsc.studyjams.newsapp.databinding.RecyclerViewItemBinding
 
-class BookmarksRecyclerViewAdapter(
+class BookmarksAdapter(
     private val context: Context,
     private val bookmarks:List<Bookmark>
-    ) : RecyclerView.Adapter<BookmarksRecyclerViewAdapter.ItemViewHolder>() {
+    ) : RecyclerView.Adapter<BookmarksAdapter.ItemViewHolder>() {
 
     private lateinit var binding: RecyclerViewItemBinding
 

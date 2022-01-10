@@ -1,4 +1,4 @@
-package gdsc.stydyjams.newsapp
+package gdsc.studyjams.newsapp
 
 import android.os.Bundle
 import android.view.*
@@ -7,8 +7,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import gdsc.stydyjams.newsapp.databinding.FragmentListBinding
-import gdsc.stydyjams.newsapp.viewmodels.ListViewModel
+import gdsc.studyjams.newsapp.databinding.FragmentListBinding
+import gdsc.studyjams.newsapp.viewmodels.ListViewModel
 
 
 class ListFragment : Fragment(R.layout.fragment_list) {
@@ -61,10 +61,12 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             binding.recyclerView.layoutManager = layoutManager
 
             // add default divider
-            binding.recyclerView.addItemDecoration(DividerItemDecoration(
-                activity,
-                layoutManager.orientation
-            ))
+            binding.recyclerView.addItemDecoration(
+                DividerItemDecoration(
+                    activity,
+                    layoutManager.orientation
+                )
+            )
             Toast.makeText(context, "News Updated!", Toast.LENGTH_SHORT).show()
 
             adapter?.setOnItemClickListener { article ->

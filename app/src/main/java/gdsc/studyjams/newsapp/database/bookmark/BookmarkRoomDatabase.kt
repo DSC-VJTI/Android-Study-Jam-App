@@ -1,8 +1,8 @@
-package gdsc.stydyjams.newsapp.database.bookmark
+package gdsc.studyjams.newsapp.database.bookmark
 
 import android.content.Context
 import androidx.room.*
-import gdsc.stydyjams.newsapp.network.Source
+import gdsc.studyjams.newsapp.network.Source
 
 // creating an instance of the Room database that will contain the Bookmark entity
 @Database(entities = [Bookmark::class], version = 2, exportSchema = false)

@@ -1,12 +1,12 @@
-package gdsc.stydyjams.newsapp.viewmodels
+package gdsc.studyjams.newsapp.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import gdsc.stydyjams.newsapp.model.Article
-import gdsc.stydyjams.newsapp.network.Response
-import gdsc.stydyjams.newsapp.repository.NewsRepository
+import gdsc.studyjams.newsapp.model.Article
+import gdsc.studyjams.newsapp.network.Response
+import gdsc.studyjams.newsapp.repository.NewsRepository
 import kotlinx.coroutines.launch
 
 class ListViewModel(private val repository: NewsRepository) : ViewModel() {
@@ -33,7 +33,7 @@ class ListViewModel(private val repository: NewsRepository) : ViewModel() {
 
     fun getBookmarks() = repository.getBookmarks()
 
-    fun addBookmark(article: Article) = viewModelScope.launch {
+    fun addBookmark(article: Article?) = viewModelScope.launch {
         repository.addBookmark(article)
     }
 

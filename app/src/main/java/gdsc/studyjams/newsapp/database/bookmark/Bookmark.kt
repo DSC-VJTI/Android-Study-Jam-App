@@ -1,4 +1,4 @@
-package gdsc.stydyjams.newsapp.database.bookmark
+package gdsc.studyjams.newsapp.database.bookmark
 
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
@@ -8,6 +8,6 @@ import androidx.room.PrimaryKey
 // representation of the bookmark table as Entity in the Room database
 @Entity
 data class Bookmark(
-    @PrimaryKey @NonNull @ColumnInfo(name = "title") val headline: String,
+    @PrimaryKey @ColumnInfo(name = "title") val headline: String,
     @NonNull @ColumnInfo(name = "url") val url: String
 )

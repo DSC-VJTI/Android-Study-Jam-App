@@ -1,4 +1,4 @@
-package gdsc.stydyjams.newsapp.database.bookmark
+package gdsc.studyjams.newsapp.database.bookmark
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

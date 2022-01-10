@@ -1,8 +1,8 @@
-package gdsc.stydyjams.newsapp.viewmodels
+package gdsc.studyjams.newsapp.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import gdsc.stydyjams.newsapp.repository.NewsRepository
+import gdsc.studyjams.newsapp.repository.NewsRepository
 
 class ListViewModelFactory(private val repository: NewsRepository) :
     ViewModelProvider.Factory {

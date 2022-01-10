@@ -1,7 +1,7 @@
-package gdsc.stydyjams.newsapp.network
+package gdsc.studyjams.newsapp.network
 
 import com.squareup.moshi.Json
-import gdsc.stydyjams.newsapp.model.Article
+import gdsc.studyjams.newsapp.model.Article
 
 data class Source (@Json(name = "id")  var id: String?,
                    @Json(name = "name") var name: String

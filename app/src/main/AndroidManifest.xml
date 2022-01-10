@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="gdsc.stydyjams.newsapp">
+    package="gdsc.studyjams.newsapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,15 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App.Starting">
         <activity
-            android:name=".RegisterActivity"
+            android:name="gdsc.studyjams.newsapp.RegisterActivity"
             android:exported="false"
             android:theme="@style/Theme.App.Starting" />
         <activity
-            android:name=".MainActivity"
+            android:name="gdsc.studyjams.newsapp.MainActivity"
             android:exported="false"
             android:theme="@style/Theme.App.Starting" />
         <activity
-            android:name=".LoginActivity"
+            android:name="gdsc.studyjams.newsapp.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.App.Starting">
             <intent-filter>
