@@ -20,7 +20,7 @@ private val retrofit = Retrofit.Builder()
 
 interface NewsApiService {
 
-    @GET("v2/everything?q=Google&from=2022-1-1&sortBy=popularity&apiKey=5cfc56db5023476c959c65e66cbf23e0")
+    @GET("v2/top-headlines?q=coronavirus&category=health&language=en&apiKey=5cfc56db5023476c959c65e66cbf23e0")
     suspend fun getNews() : Response
 
 }
